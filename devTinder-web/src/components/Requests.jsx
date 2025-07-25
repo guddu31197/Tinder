@@ -2,41 +2,41 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addConnections } from "../utils/connectionSlice";
+import { addRequests } from "../utils/requestSlice";
 
-const Connections = () => {
-  const connections = useSelector((store) => store.connections);
+const Requests = () => {
+  const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
-  const fetchConnections = async () => {
+
+  const fetchRequests = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/connections", {
+      const res = await axios.get(BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
-      dispatch(addConnections(res.data.data));
-    } catch {
-      // Handle Error case
+      dispatch(addRequests(res.data.data));
+    } catch (err) {
+      // handle error
     }
   };
 
   useEffect(() => {
-    fetchConnections();
+    fetchRequests();
   }, []);
+  if (!requests) return;
 
-  if (!connections) return;
-
-  if (connections.length === 0) return <h1>No Connection Found</h1>;
+  if (requests.length === 0) return <h1>No Requests Found</h1>;
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl">Connections</h1>
+      <h1 className="text-bold text-white text-3xl">Connections Requests</h1>
 
-      {connections.map((connection) => {
+      {requests.map((request) => {
         const { _id, firstName, lastName, photoUrl, age, gender, about } =
-          connection;
+          request.fromUserId;
         return (
           <div
             key={_id}
-            className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
+            className="flex justify-between items-center m-4 p-4 rounded-lg bg-base-300 w-2/3 mx-auto"
           >
             <div>
               <img
@@ -52,6 +52,10 @@ const Connections = () => {
               {age && gender && <p>{age + ", " + gender}</p>}
               <p>{about}</p>
             </div>
+            <div>
+              <button className="btn btn-primary mx-2">Reject</button>
+              <button className="btn btn-secondary mx-2">Accept</button>
+            </div>
           </div>
         );
       })}
@@ -59,4 +63,4 @@ const Connections = () => {
   );
 };
 
-export default Connections;
+export default Requests;
