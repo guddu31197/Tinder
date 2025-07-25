@@ -21,4 +21,9 @@
 -Refactor our code to add constants file + create a components folder
 -You should not be access other routes withought login
 -If token is not present, redirect user to login
--
+-Logout Feature
+-Get the feed and the feed in the store
+-build the user card on feed
+-Edit profile Feature
+-Show Toast Message on save of profile
+-See all my connections

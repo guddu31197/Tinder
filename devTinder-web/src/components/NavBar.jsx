@@ -8,7 +8,7 @@ import { removeUser } from "../utils/userSlice";
 const NavBar = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -51,7 +51,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/connections">Connections</Link>
               </li>
               <li>
                 <a onClick={handleLogout}>Logout</a>
@@ -65,3 +65,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
