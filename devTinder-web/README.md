@@ -29,3 +29,4 @@
 -See all my connections
 -New Page - See all my connection Requests
 -Feature Accept Reaject Connection Request
+-Send ignore the user card from the feed

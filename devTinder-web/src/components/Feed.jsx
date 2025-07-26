@@ -7,7 +7,7 @@ import UserCard from "./UserCard";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
-  
+
   const dispatch = useDispatch();
 
   const getFeed = async () => {
@@ -21,17 +21,22 @@ const Feed = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       });
 
       dispatch(addFeed(res?.data?.data));
     } catch (err) {
-      console.error("Feed fetch error:", err?.response?.data || err.message);
+      console.error("Feed fetch error:", err);
     }
   };
 
   useEffect(() => {
     getFeed();
   }, []);
+  if (!feed) return;
+
+  if (feed.length <= 0)
+    return <h1 className="flex justify-center my-10">No new user found!</h1>;
   return (
     feed && (
       <div className="flex justify-center my-10">

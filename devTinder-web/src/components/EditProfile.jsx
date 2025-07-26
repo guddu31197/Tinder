@@ -4,7 +4,6 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { data } from "react-router-dom";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
@@ -36,9 +35,11 @@ const EditProfile = ({ user }) => {
       setShowTost(true);
       setTimeout(() => {
         setShowTost(false);
-      }, 300);
+      }, 3000);
     } catch (err) {
-      setError(err.message.data);
+      // setError(err.message.data);
+      setError(err.response?.data?.message || "Something went wrong");
+
     }
   };
   return (
@@ -90,7 +91,7 @@ const EditProfile = ({ user }) => {
                     <span className="label-text">Age</span>
                   </div>
                   <input
-                    type="text"
+                    type="number"
                     value={age}
                     className="input input-bordered w-full max-w-xs"
                     onChange={(e) => setAge(e.target.value)}
@@ -137,7 +138,7 @@ const EditProfile = ({ user }) => {
       {showTost && (
         <div className="toast toast-top toast-center">
           <div className="alert alert-success">
-            <span>Message sent successfully.</span>
+            <span>Profile saved successfully.</span>
           </div>
         </div>
       )}
