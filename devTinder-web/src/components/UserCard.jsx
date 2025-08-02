@@ -11,13 +11,14 @@ const UserCard = ({ user }) => {
   const handleSendRequest = async (status, userId) => {
     try {
       const res = await axios.post(
-        BASE_URL + "/request/send/interested/" + status + "" + "/" + userId,
+        BASE_URL + "/request/send/" + status + "/" + userId,
         {},
         { withCredentials: true }
       );
       dispatch(removeFromFeed(userId));
     } catch (err) {
       // handle error
+      console.error(err);
     }
   };
   return (
@@ -32,7 +33,7 @@ const UserCard = ({ user }) => {
         <div className="card-actions justify-center my-4">
           <button
             className="btn btn-primary"
-            onClick={() => handleSendRequest("ignore", _id)}
+            onClick={() => handleSendRequest("ignored", _id)}
           >
             Ignore
           </button>

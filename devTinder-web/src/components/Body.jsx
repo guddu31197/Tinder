@@ -29,9 +29,7 @@ const Body = () => {
   };
 
   useEffect(() => {
-    if (!userData) {
-      fetchUser();
-    }
+    fetchUser();
   }, []);
 
   return (
@@ -42,5 +40,4 @@ const Body = () => {
     </div>
   );
 };
-
 export default Body;

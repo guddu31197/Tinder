@@ -1,26 +1,20 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { BASE_URL, getCookie } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
-
   const dispatch = useDispatch();
 
   const getFeed = async () => {
     if (feed) return;
 
     try {
-      const token = getCookie("token");
-      console.log("Token being sent:", token);
 
       const res = await axios.get(BASE_URL + "/feed", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         withCredentials: true,
       });
 

@@ -9,7 +9,7 @@ const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [age, setAge] = useState(user.age);
+  const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
   const [error, setError] = useState("");
@@ -38,8 +38,7 @@ const EditProfile = ({ user }) => {
       }, 3000);
     } catch (err) {
       // setError(err.message.data);
-      setError(err.response?.data?.message || "Something went wrong");
-
+      setError(err.response.data || "Something went wrong");
     }
   };
   return (
@@ -91,7 +90,7 @@ const EditProfile = ({ user }) => {
                     <span className="label-text">Age</span>
                   </div>
                   <input
-                    type="number"
+                    type="text"
                     value={age}
                     className="input input-bordered w-full max-w-xs"
                     onChange={(e) => setAge(e.target.value)}
@@ -122,8 +121,8 @@ const EditProfile = ({ user }) => {
                   />
                 </label>
               </div>
+              <p className="text-red-500">{error}</p>
               <div className="card-actions justify-center m-2">
-                <p className="text-red-500">{error}</p>
                 <button className="btn btn-primary" onClick={saveProfile}>
                   Save profile
                 </button>
